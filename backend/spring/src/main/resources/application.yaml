@@ -1,0 +1,23 @@
+server:
+  port: 8080
+
+auth:
+  issuer: "http://52.79.233.106"       # NGINX 앞이면 https://api.example.com 같은 퍼블릭 도메인
+  access-minutes: 20
+  refresh-days: 14
+  keys:
+    kid: "dev-kid-0001"
+    private-pem: "file:/run/secrets/private_pkcs8.pem"
+    public-pem:  "file:/run/secrets/public.pem"
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update      # ← 개발용: 엔티티 기반으로 테이블 자동 생성
+    show-sql: true
+    properties:
+      hibernate.jdbc.time_zone: UTC
