@@ -1,0 +1,109 @@
+
+services:
+  nginx:
+    image: nginx:stable
+    ports: ["80:80"]
+    volumes:
+      - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on: [spring, fastapi]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  postgres:
+    image: postgres:16
+    container_name: postgres-testuser-db
+    ports:
+    - "5434:5434"
+    environment:
+      - POSTGRES_DB=test
+      - POSTGRES_USER=moon
+      - POSTGRES_PASSWORD=moon1
+      - POSTGRES_PORT=5434
+    volumes:
+      - dasida_testuser_data:/var/lib/postgresql/data
+
+  spring:
+    build: ./backend/spring
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5434/test
+      - SPRING_DATASOURCE_USERNAME=moon
+      - SPRING_DATASOURCE_PASSWORD=moon1
+      - AUTH_ISSUER=${AUTH_ISSUER}
+    volumes:
+      - ./secrets:/run/secrets:ro
+    depends_on: [postgres]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  fastapi:
+    build: ./backend/fastapi
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    environment:
+      - JWKS_URL=${AUTH_ISSUER}/.well-known/jwks.json
+      - PROVIDER=gemini
+      - GEMINI_MODEL=gemini-2.5-flash
+      - APP_ENV=dev
+      - DB_HOST=postgres
+      - DB_PORT=5434
+      - DB_NAME=test
+      - DB_USER=moon
+      - DB_PASSWORD=moon1
+    volumes:
+      - ./api_usage:/app/api_usage
+    depends_on: [spring, postgres]
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # # Metro 번들러 컨테이너 (개발 편의를 위해)
+  # rn:
+  #   build: ./dasida
+  #   command: ["sh","-c","npm i && npx react-native start --host 0.0.0.0 --port 8081"]
+  #   ports:
+  #     - "8081:8081"    # Metro
+  #   volumes:
+  #     - ./dasida:/app
+  #   environment:
+  #     - API_BASE=http://52.79.233.106        # 시뮬레이터는 호스트의 127.0.0.1 == Mac
+  #     - WS_BASE=ws://52.79.233.106
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
+
+  expo:
+    build: ./dasida
+    command: ["sh","-c","./node_modules/.bin/expo start --tunnel --clear --non-interactive --port 8081"]
+    ports:
+      - "8081:8081"     # Web (Expo dev server web UI)
+      - "8082:8082"     # DevTools (if used)
+    volumes:
+      - ./dasida:/app
+    environment:
+      - EXPO_USE_DEV_SERVER=true
+      - CHOKIDAR_USEPOLLING=1
+      - API_BASE=http://52.79.233.106
+      - WS_BASE=ws://52.79.233.106
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+volumes:
+  dasida_testuser_data:
+
