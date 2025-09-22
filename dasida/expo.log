@@ -1,0 +1,64 @@
+nohup: ignoring input
+env: load .env
+env: export EXPO_PUBLIC_API_URL EXPO_PUBLIC_WS_URL AUTH_ISSUER
+Starting project at /home/ubuntu/test-env/dasida
+Starting Metro Bundler
+warning: Bundler cache is empty, rebuilding (this may take a minute)
+Tunnel connected.
+Tunnel ready.
+The following packages should be updated for best compatibility with the installed expo version:
+  expo-router@5.1.5 - expected version: ~5.1.6
+Your project may not work correctly until you install the expected versions of the packages.
+Waiting on http://localhost:8081
+Logs for your project will appear below.
+iOS node_modules/expo-router/entry.js ░░░░░░░░░░░░░░░░  0.0% (0/1)
+iOS node_modules/expo-router/entry.js ▓▓░░░░░░░░░░░░░░ 17.6% ( 82/304)
+iOS node_modules/expo-router/entry.js ▓▓░░░░░░░░░░░░░░ 17.6% (172/457)
+iOS node_modules/expo-router/entry.js ▓▓▓░░░░░░░░░░░░░ 19.0% (253/580)
+iOS node_modules/expo-router/entry.js ▓▓▓▓░░░░░░░░░░░░ 29.3% (395/730)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓░░░░░░░░░░░ 37.3% (566/927)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓▓▓░░░░░░░░░ 49.5% ( 737/1121)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓░░░░░░░░ 54.9% ( 875/1184)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓░░░░░ 70.8% (1034/1229)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 75.4% (1141/1314)
+iOS node_modules/expo-router/entry.js ▓▓▓▓▓▓▓▓▓▓▓▓░░░░ 80.8% (1229/1367)
+iOS Bundled 39293ms node_modules/expo-router/entry.js (1416 modules)
+ WARN  [Layout children]: No route named "start" exists in nested children: ["+not-found", "bookshelf", "chat-save", "chatlog-page", "create-folder", "incorrect-notes", "login", "notice", "problem-report", "problem", "register", "_sitemap", "(tabs)"]
+ WARN  [Layout children]: Too many screens defined. Route "search" is extraneous.
+ WARN  [Layout children]: Too many screens defined. Route "create" is extraneous.
+ WARN  [Layout children]: Too many screens defined. Route "notifications" is extraneous.
+ LOG  헤더 렌더링 시 userInfo: null
+ LOG  userInfo?.name 값: undefined
+ LOG  === 사용자 정보 로딩 시작 ===
+ LOG  🔍 스토리지에서 user_info 조회 중...
+ LOG  📦 스토리지에서 가져온 원본 데이터: "{\"name\":\"문수정\",\"email\":\"moon@gmail.com\"}"
+ LOG  📦 데이터 타입: string
+ LOG  📦 데이터 길이: 49
+ LOG  🔄 JSON 파싱 시도...
+ LOG  ✅ 1차 파싱 결과: {"name":"문수정","email":"moon@gmail.com"}
+ LOG  ✅ 1차 파싱 타입: string
+ LOG  🔄 이중 JSON 파싱 필요, 2차 파싱 시도...
+ LOG  ✅ 2차 파싱 결과: {"email": "moon@gmail.com", "name": "문수정"}
+ LOG  ✅ 최종 userInfo.name: 문수정
+ LOG  ✅ 최종 userInfo.email: moon@gmail.com
+ LOG  getUserInfo() 결과: {"email": "moon@gmail.com", "name": "문수정"}
+ LOG  info의 타입: object
+ LOG  info가 null인가? false
+ LOG  info가 undefined인가? false
+ LOG  사용자 정보 존재, 상태 업데이트 중...
+ LOG  info.name: 문수정
+ LOG  info.email: moon@gmail.com
+ LOG  setUserInfo 호출 완료
+ LOG  헤더 렌더링 시 userInfo: {"email": "moon@gmail.com", "name": "문수정"}
+ LOG  userInfo?.name 값: 문수정
+ LOG  🔍 스토리지에서 user_info 조회 중...
+ LOG  📦 스토리지에서 가져온 원본 데이터: "{\"name\":\"문수정\",\"email\":\"moon@gmail.com\"}"
+ LOG  📦 데이터 타입: string
+ LOG  📦 데이터 길이: 49
+ LOG  🔄 JSON 파싱 시도...
+ LOG  ✅ 1차 파싱 결과: {"name":"문수정","email":"moon@gmail.com"}
+ LOG  ✅ 1차 파싱 타입: string
+ LOG  🔄 이중 JSON 파싱 필요, 2차 파싱 시도...
+ LOG  ✅ 2차 파싱 결과: {"email": "moon@gmail.com", "name": "문수정"}
+ LOG  ✅ 최종 userInfo.name: 문수정
+ LOG  ✅ 최종 userInfo.email: moon@gmail.com
